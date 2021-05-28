@@ -120,13 +120,15 @@ $ sudo tar zxfv jdk-8u281-linux-x64.tar.gz -C /usr/lib/jvm
 
 Install the new alternative
 ```
-$ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_281/bin/java" 1
+$ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/lib/jvm/jdk1.8.0_291/bin/java" 1
+
+$ sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/lib/jvm/jdk1.8.0_291/bin/javac" 1
 ```
 
 Set the new alternative as default
 ```
-$ sudo update-alternatives --set java /usr/lib/jvm/jdk1.8.0_281/bin/java
-$ sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_281/bin/javac
+$ sudo update-alternatives --set java /usr/lib/jvm/jdk1.8.0_291/bin/java
+$ sudo update-alternatives --set javac /usr/lib/jvm/jdk1.8.0_291/bin/javac
 ```
 
 # Installing Gradle
@@ -174,8 +176,7 @@ Navigate to 'Command line tools only' and download it.
 Unzip and copy it into `/opt/android-sdk/`
 
 ```
-$ unzip commandlinetools-linux-6858069_latest.zip
-$ sudo cp -r cmdline-tools/ /opt/android-sdk/
+$ unzip -d /opt/android-sdk commandlinetools-linux-6858069_latest.zip
 ```
 
 Got to Android SDK and create the latest folder
@@ -189,10 +190,10 @@ Move files into latest folder
 $ sudo mv NOTICE.txt bin/ lib/ source.properties latest/
 ```
 
-Add env variables to `~ ./bashrc` file
+Add env variables to `~/.bashrc` file
 ```
 export ANDROID_SDK_ROOT=/opt/android-sdk
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_281
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_291
 export PATH=${PATH}:/opt/android-sdk/cmdline-tools/latest/bin
 ```
 
@@ -206,37 +207,6 @@ Install Android SDK
 [sdkmanager reference](https://developer.android.com/studio/command-line/sdkmanager)
 ```
 $ sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
-```
-
-# Apache Cordova
-
-[Reference](https://cordova.apache.org/)
-
-Install Apache Cordova globally
-```
-$ sudo npm install -g cordova
-```
-
-Create Cordova App
-```
-$ cordova create cordova-app
-```
-
-Add platforms
-```
-$ cd cordova-app
-$ cordova platform add browser
-$ cordova platform add android
-```
-
-Run in the browser
-```
-$ cordova run browser
-```
-
-Build android App
-```
-$ cordova build android
 ```
 
 # Data Bases
@@ -256,6 +226,14 @@ $ sudo apt install postgresql postgresql-contrib postgis
 ### Nginx
 ```
 $ sudo apt install nginx
+```
+
+Create app folder and deploy folders
+```
+$ sudo mkdir /var/www/apps
+$ sudo chmod -R 777 /var/www/apps
+$ cd /var/www/apps
+$ mkdir qa staging master
 ```
 
 # Apache
@@ -279,7 +257,12 @@ Installing PIP
 ```
 $ wget https://bootstrap.pypa.io/get-pip.py
 $ sudo python3 get-pip.py
-$ sudo pip install virtualenv virtualenvwrapper django-admin-tools
+$ sudo pip install virtualenv virtualenvwrapper
+```
+
+Create env folder
+```
+$ sudo mkdir /opt/virtualenvs && sudo chmod -R 777 /opt/virtualenvs
 ```
 
 Add env variables
@@ -292,7 +275,7 @@ Add:
 alias python=python3
 alias pip=pip3
 VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=/home/${USER}/.virtualenvs
+export WORKON_HOME=/opt/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 Reload the bash:
@@ -322,6 +305,12 @@ $ sudo sysctl -p
 
 ```
 $ wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+# Or
+
+$ wget -qO - https://pkg.jenkins.io/debian-stable/jenkins.io.key |
+  sudo gpg --no-default-keyring --keyring gnupg-ring:/etc/apt/trusted.gpg.d/jenkins.gpg --import -
+  
 $ sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
     /etc/apt/sources.list.d/jenkins.list'
 $ sudo apt update && sudo apt -y install jenkins
@@ -368,6 +357,38 @@ jenkins ALL=(ALL) NOPASSWD: ALL
 ```
 
 Save and run sudo commands with Jenkins and not pass any password
+
+
+# Apache Cordova
+
+[Reference](https://cordova.apache.org/)
+
+Install Apache Cordova globally
+```
+$ sudo npm install -g cordova
+```
+
+Create Cordova App
+```
+$ cordova create cordova-app
+```
+
+Add platforms
+```
+$ cd cordova-app
+$ cordova platform add browser
+$ cordova platform add android
+```
+
+Run in the browser
+```
+$ cordova run browser
+```
+
+Build android App
+```
+$ cordova build android
+```
 
 # Create a React App with TypeScript
 
@@ -539,6 +560,7 @@ Allow or deny ports or apps
 ```
 $ sudo ufw allow ssh
 $ sudo ufw allow 22/tcp
+$ sudo ufw allow 443/tcp
 $ sudo ufw allow 80/tc
 $ sudo ufw deny 80/tcp
 $ sudo ufw delete allow ssh
@@ -660,7 +682,6 @@ Installing Certbot on Nginx
 Verifying Snap
 ```
 $ sudo apt update && sudo apt install snapd
-$ sudo apt install supervisor htop ufw python3 snapd
 ```
 
 Installing certbot
