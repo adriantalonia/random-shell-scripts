@@ -84,6 +84,25 @@ Reload the bash:
 . ~/.bashrc
 ```
 
+# Installing Docker
+
+```
+$ sudo apt install docker.io
+$ sudo systemctl enable docker
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+$ newgrp docker
+```
+
+Installing docker-compose
+
+```
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+
+
 # Installing Open JDK
 
 ```
@@ -209,6 +228,19 @@ Install Android SDK
 $ sdkmanager "platform-tools" "platforms;android-29" "build-tools;29.0.3"
 ```
 
+Display installed packages
+
+```
+$ sdkmanager --list_installed
+```
+
+
+Remove packages
+
+```
+$ sdkmanager --uninstall "platforms;android-31" "build-tools;31.0.0
+```
+
 # Data Bases
 
 ### Install MySQL
@@ -257,12 +289,12 @@ Installing PIP
 ```
 $ wget https://bootstrap.pypa.io/get-pip.py
 $ sudo python3 get-pip.py
-$ sudo pip install virtualenv virtualenvwrapper
+$ sudo python3 -m pip install virtualenv virtualenvwrapper
 ```
 
 Create env folder
 ```
-$ sudo mkdir /opt/virtualenvs && sudo chmod -R 777 /opt/virtualenvs
+$ sudo mkdir /var/www/virtualenvs -p && sudo chmod -R 777 /var/www/virtualenvs
 ```
 
 Add env variables
@@ -275,7 +307,7 @@ Add:
 alias python=python3
 alias pip=pip3
 VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=/opt/virtualenvs
+export WORKON_HOME=/var/www/virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
 ```
 Reload the bash:
@@ -357,6 +389,13 @@ jenkins ALL=(ALL) NOPASSWD: ALL
 ```
 
 Save and run sudo commands with Jenkins and not pass any password
+
+Add git credentials
+
+```
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
 
 
 # Apache Cordova
