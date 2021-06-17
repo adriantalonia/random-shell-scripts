@@ -84,6 +84,25 @@ Reload the bash:
 . ~/.bashrc
 ```
 
+# Installing Docker
+
+```
+$ sudo apt install docker.io
+$ sudo systemctl enable docker
+$ sudo groupadd docker
+$ sudo usermod -aG docker $USER
+$ newgrp docker
+```
+
+Installing docker-compose
+
+```
+$ sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+$ sudo chmod +x /usr/local/bin/docker-compose
+$ sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+```
+
+
 # Installing Open JDK
 
 ```
@@ -357,6 +376,13 @@ jenkins ALL=(ALL) NOPASSWD: ALL
 ```
 
 Save and run sudo commands with Jenkins and not pass any password
+
+Add git credentials
+
+```
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+```
 
 
 # Apache Cordova
