@@ -5,3 +5,17 @@
 ```
 $ upower -i /org/freedesktop/UPower/devices/battery_BAT0
 ```
+
+## Upgrade Ubuntu version
+
+```
+$ do-release-upgrade
+```
+
+## Show packages installed
+
+```
+$ dpkg -l | grep cups
+```
+
+
