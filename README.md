@@ -129,12 +129,12 @@ Create the JDK directory
 $ sudo mkdir -p /usr/lib/jvm
 ```
 
-Go to [Oracle web page](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) and download the JDK file "Linux x64 Compressed Archive" - **jdk-8u281-linux-x64.tar.gz**.
+Go to [Oracle web page](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html) and download the JDK file "Linux x64 Compressed Archive" - **jdk-8u291-linux-x64.tar.gz**.
 
 Uncompress the JDK file:
 
 ```
-$ sudo tar zxfv jdk-8u281-linux-x64.tar.gz -C /usr/lib/jvm
+$ sudo tar zxfv jdk-8u291-linux-x64.tar.gz -C /usr/lib/jvm
 ```
 
 Install the new alternative
@@ -158,7 +158,7 @@ Download and unzip gradle from [here](https://gradle.org/install/)
 
 ```
 $ sudo mkdir /opt/gradle
-$ sudo unzip -d /opt/gradle gradle-7.0-bin.zip
+$ sudo unzip -d /opt/gradle gradle-7.0.2-bin.zip
 ```
 
 Add gradle to the PATH environment variable in `.bashrc` file
@@ -170,7 +170,7 @@ $ vim ~/.bashrc
 Add:
 
 ```
-export PATH=${PATH}:/opt/gradle/gradle-7.0/bin
+export PATH=${PATH}:/opt/gradle/gradle-7.0.2/bin
 ```
 
 Reload the bash
@@ -195,7 +195,7 @@ Navigate to 'Command line tools only' and download it.
 Unzip and copy it into `/opt/android-sdk/`
 
 ```
-$ unzip -d /opt/android-sdk commandlinetools-linux-6858069_latest.zip
+$ unzip -d /opt/android-sdk commandlinetools-linux-7302050_latest.zip
 ```
 
 Got to Android SDK and create the latest folder
@@ -585,6 +585,12 @@ $ sudo supervisorctl stop <name>
 $ sudo supervisorctl start <name>
 $ sudo supervisorctl restart <name>
 ```
+
+# Google email SMTP server
+
+[DisplayUnlockCaptcha](https://accounts.google.com/DisplayUnlockCaptcha)
+
+[lesssecureapps](https://www.google.com/settings/security/lesssecureapps)
 
 
 # Setting up UWF firewall
