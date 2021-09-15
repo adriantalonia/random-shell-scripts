@@ -103,6 +103,47 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 ```
 
+### Install docker multi-arch support
+
+[Reference](https://www.stereolabs.com/docs/docker/building-arm-container-on-x86/)
+
+```sh
+sudo apt-get install qemu binfmt-support qemu-user-static 
+```
+
+```sh
+docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+```
+
+### Install docker registry
+
+```sh
+docker run -d -p 5000:5000 --name registry registry:2
+
+or
+
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+```
+
+### Add insecure docker registry
+```sh
+sudo vim /etc/docker/daemon.json
+```
+
+Add:
+```sh
+{
+  "insecure-registries" : [
+    "myregistrydomain.com:5000"
+  ]
+}
+```
+
+Restart docker:
+```sh
+sudo service docker restart
+```
+
 # Installing Minikube
 ```sh
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
@@ -858,24 +899,94 @@ Add:
 
 # Raspberry
 
-To Share Wifi - Ethernet Connetion
+
+### To Share Wifi - Ethernet Connetion
 
 ```sh
 nm-connection-editor
 ```
 
-Get IP
+### Get IP
 ```sh
 sudo dhclient -r
 ```
 
-Enable SSH Interface
+### Enable SSH Interface
 ```sh
 sudo raspi-config
 ```
 > Interfacing Options -> SSH -> YES -> OK
 
-Some libraries
+### Some libraries
 ```sh
 sudo apt-get install software-properties-common libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev libwebp-dev tcl8.5-dev tk8.5-dev python-tk
 ```
+
+### Install docker
+
+[Reference](https://www.raspberrypi.org/blog/docker-comes-to-raspberry-pi/)
+
+```sh
+curl -sSL https://get.docker.com | sh
+```
+
+### Install NodeJS
+
+[Reference](https://nodejs.org/download/release/v11.15.0/node-v11.15.0-linux-arm64.tar.gz)
+
+Un-tar node js
+```sh
+VERSION=v11.15.0 \
+DISTRO=linux-arm64 \
+sudo mkdir -p /usr/local/lib/nodejs \
+sudo tar -xJvf node-$VERSION-$DISTRO.tar.xz -C /usr/local/lib/nodejs 
+```
+
+Copy files
+```sh
+sudo tar -xJvf node-v11.15.0-linux-armv6l.tar.xz -C /usr/local/lib/nodejs
+```
+
+Open .profile file
+```sh
+vim ~/.profile
+```
+
+Add NodeJS bin to .profile
+```sh
+export PATH=/usr/local/lib/nodejs/node-v11.15.0-linux-armv6l/bin:$PATH
+```
+
+Reload profile
+```sh
+. ~/.profile
+```
+
+# Bluetooth
+
+```sh
+sudo bluetoothctl power on
+
+# Scan to discover other devices
+sudo bluetoothctl scan on
+
+# See devices
+sudo bluetoothctl devices
+
+# Pair new device
+sudo bluetoothctl pair [address]
+
+# Connect new device
+sudo bluetoothctl connect [address]
+```
+
+### Attach bluetooth
+
+[Reference](https://velog.io/@kitsunetic/Serial-Communication-using-Python-Linux-through-BLE-with-Arduino-HC-06)
+```sh
+sudo rfcomm bind 0 00:14:03:05:0C:5D
+```
+
+### AT Commands
+
+[Reference](https://www.linux-magazine.com/Issues/2017/197/Command-Line-bluetoothctl)
