@@ -33,8 +33,11 @@ docker run -d [docker-image]
 # To bind a port
 docker run -p 5001:5000 [docker-image]
 
+# To restart it always
+docker run -d -p 5000:5000 --restart=always --name [my-docker] [docker-image]
+
 # To pass environment variables
-docker run -r MY_PASS=mypassword [docker-image]
+docker run -e MY_PASS=mypassword [docker-image]
 
 # To specify the network
 docker run --net my-network [docker-image]
@@ -127,3 +130,43 @@ docker tag my-image:1.0 my-registry/my-image:1.0
 docker push my-registry/my-image:1.0
 ```
 
+<<<<<<< HEAD
+=======
+### Add insecure docker registry
+```sh
+sudo vim /etc/docker/daemon.json
+```
+
+Add:
+```sh
+{
+  "insecure-registries" : [
+    "myregistrydomain.com:5000"
+  ]
+}
+```
+
+Restart docker:
+```sh
+sudo service docker restart
+```
+
+### Remove all exited container
+
+[Reference](https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes)
+
+```sh
+# List:
+docker ps -a -f status=exited
+```
+
+```sh
+# Remove:
+docker rm $(docker ps -a -f status=exited -q)
+```
+
+### Clear un-used images
+```sh
+docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
+```
+>>>>>>> 8f7a405... Add: K8s commands
