@@ -130,8 +130,6 @@ docker tag my-image:1.0 my-registry/my-image:1.0
 docker push my-registry/my-image:1.0
 ```
 
-<<<<<<< HEAD
-=======
 ### Add insecure docker registry
 ```sh
 sudo vim /etc/docker/daemon.json
@@ -169,4 +167,3 @@ docker rm $(docker ps -a -f status=exited -q)
 ```sh
 docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 ```
->>>>>>> 8f7a405... Add: K8s commands
