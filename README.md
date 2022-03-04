@@ -489,6 +489,12 @@ sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
 sudo apt update && sudo apt -y install jenkins
 ```
 
+## Installing Jenkins via Docker
+
+```sh
+docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 --restart=always jenkins/jenkins:lts-jdk11
+```
+
 [Configure Nginx for jenkins](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-nginx/)
 
 
@@ -641,6 +647,30 @@ sudo su - postgres
 pg_dump postgres > postgres_db.bak
 createdb -T template0 restored_database
 psql restored_database < database.bak
+```
+
+### Restore DB in docker container
+
+First we need to enter into the docker container
+
+List docker containers
+```sh
+docker ps
+```
+
+Copy the backup DB into the docker container
+```sh
+docker cp my-backup-file.sql [docker-container-id]:/
+```
+
+Enter into a docker container
+```sh
+docker exec -it [docker-container-id] /bin/bash
+```
+
+Restore the DB
+```sh
+cat my-backup-file.sql | psql -U my-db-user
 ```
 
 ### Using PostGIS
