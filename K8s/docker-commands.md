@@ -63,6 +63,11 @@ docker stop [docker-container-id]
 docker exec -it [docker-container-id] /bin/bash
 ```
 
+### Copy files to docker container
+```sh
+docker cp ./my-file [docker-container-id]:/my-path
+```
+
 ### Crete / list / delete a docker network
 ```sh
 docker network create [netowrk-name]
