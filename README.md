@@ -491,8 +491,10 @@ sudo apt update && sudo apt -y install jenkins
 
 ## Installing Jenkins via Docker
 
+Use the docker-compose file in the jenkins folder
+
 ```sh
-docker run -d -v jenkins_home:/var/jenkins_home -p 8080:8080 -p 50000:50000 --restart=always jenkins/jenkins:lts-jdk11
+docker-compose -f jenkins-docker-compose.yaml up -d
 ```
 
 [Configure Nginx for jenkins](https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-nginx/)
