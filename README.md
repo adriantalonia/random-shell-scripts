@@ -144,6 +144,30 @@ Restart docker:
 sudo service docker restart
 ```
 
+# Installing Microk8s
+
+[Microk8s](https://microk8s.io/)
+
+Install microk8s in the master and worker nodes
+```sh
+sudo snap install microk8s --classic
+```
+
+Enable DNS
+```sh
+microk8s enable dns
+```
+
+Add kubectl to .bashrc file
+```sh
+alias kubectl="microk8s kubectl"
+```
+
+Add a worker node
+```sh
+microk8s add-node
+```
+
 # Installing Minikube
 ```sh
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
